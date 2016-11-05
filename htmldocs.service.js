@@ -44,7 +44,7 @@ let utils = {
 let writeFile = function (filepathf, html) {
     let deferred = q.defer();
     
-    filesystem.writeFile(filepathf, html, function (err) {
+    filesystem.writeFile(filepathf, html, 'utf-8', function (err) {
         if (err) {
             deferred.reject(err);
         } else {
@@ -104,6 +104,7 @@ let convertDir = (dirPath) => readDir(dirPath).then(function(files) {
  * Exporting a utility object.
  */
 module.exports = {
+    __utils: utils,
     writeFile: writeFile,
     convert: {
         dir: convertDir,
