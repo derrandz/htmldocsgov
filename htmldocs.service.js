@@ -4,11 +4,12 @@ const q = require('q');
 const async = require('async');
 const mammoth = require('mammoth');
 const filesystem = require('fs');
+const utils = require('./htmldocs.utils.js');
 
 /**
  * Utility features object
  */
-let utils = {
+let myUtils = {
     /**
      * @param  {} filename
      */
@@ -18,41 +19,7 @@ let utils = {
         }(filename.split('/')));
     },
 
-    serial: function (promises, seriesCallback) {
-        let deferred = q.defer();
-
-        let resolution = typeof seriesCallback === "function" ? seriesCallback.bind(deferred) : function (err, results) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(results);
-            }
-        };
-
-        async.series(promises, resolution);
-
-        return deferred.promise;
-    }
-};
-
-/**
- * Writes a file to the path that is the supplied path with the supplied value.
- * @param  {String} filepath
- * @param  {String} html
- * @return {Promise}
- */
-let writeFile = function (filepathf, html) {
-    let deferred = q.defer();
-    
-    filesystem.writeFile(filepathf, html, 'utf-8', function (err) {
-        if (err) {
-            deferred.reject(err);
-        } else {
-            deferred.resolve(filepathf);
-        }
-    });
-
-    return deferred.promise;
+    serial: utils.serial
 };
 
 /**
@@ -81,7 +48,7 @@ let convertFile = function (docFilePath) {
         return {
             html: result.value,
             logs: result.message,
-            filename: utils.parseFilename(docFilePath)
+            filename: myUtils.parseFilename(docFilePath)
         }
     });
 };
@@ -97,15 +64,15 @@ let convertDir = (dirPath) => readDir(dirPath).then(function(files) {
     };
     
     let promises = files.map(makeSerial);
-    return utils.serial(promises);
+    return myUtils.serial(promises);
 });
 
 /**
  * Exporting a utility object.
  */
 module.exports = {
-    __utils: utils,
-    writeFile: writeFile,
+    __utils: myUtils,
+    writeFile: utils.writeFile,
     convert: {
         dir: convertDir,
         file: convertFile

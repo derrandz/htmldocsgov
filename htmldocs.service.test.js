@@ -68,7 +68,7 @@ describe('htmldocs', () => {
             });
 
             it('should convert a .docx to .html', done => {
-                htmldocs.convert.file(path.join(__dirname, "test", "file.docx")).then((result) => {
+                htmldocs.convert.file(path.join(__dirname, "test", "service", "file.docx")).then((result) => {
                     chai.expect(result).to.have.property('html');
                     chai.expect(result).to.have.property('logs');
                     chai.expect(result).to.have.property('filename').to.equal('file.docx');
@@ -85,7 +85,7 @@ describe('htmldocs', () => {
             });
 
             it('should convert a dir/*.docx to .html', done => {
-                htmldocs.convert.dir(path.join(__dirname, "test", "dir")).then(results => {
+                htmldocs.convert.dir(path.join(__dirname, "test", "service", "dir")).then(results => {
                     chai.expect(results).to.be.an('array');
                     results.forEach(res => {
                         chai.expect(res).to.have.property('html');
@@ -99,14 +99,14 @@ describe('htmldocs', () => {
 
     });
 
-    describe('writeFile', () => {
+    describe('writeFile()', () => {
 
         it('should exist', () => {
             chai.expect(htmldocs.writeFile).to.exist;
         });
 
-        it('should convert save the html to ./test/saved.html', done => {
-            htmldocs.writeFile(path.join(__dirname, "test", "saved.html"), html).then(x => {
+        it('should convert save the html to ./test/service/saved.html', done => {
+            htmldocs.writeFile(path.join(__dirname, "test", "service", "saved.html"), html).then(x => {
                 done();
             });
         });
