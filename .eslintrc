@@ -1,0 +1,5 @@
+{
+	"esversion": "es6",
+	"mocha": true,
+	"node": true
+}

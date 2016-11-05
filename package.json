@@ -4,7 +4,7 @@
   "description": "Convert docx to interactive html files",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha \"./**/*.test.js\" "
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,12 @@
   },
   "homepage": "https://gitlab.com/jshrt/htmldocs.gov#README",
   "dependencies": {
-    "mammoth": "^1.2.5"
+    "async": "^2.1.2",
+    "mammoth": "^1.2.5",
+    "q": "^1.4.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2"
   }
 }
