@@ -1,0 +1,26 @@
+{
+  "name": "htmldocs.gov",
+  "version": "1.0.0",
+  "description": "Convert docx to interactive html files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/jshrt/htmldocs.gov.git"
+  },
+  "keywords": [
+    "htmldocs",
+    "gov"
+  ],
+  "author": "Inventis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/jshrt/htmldocs.gov/issues"
+  },
+  "homepage": "https://gitlab.com/jshrt/htmldocs.gov#README",
+  "dependencies": {
+    "mammoth": "^1.2.5"
+  }
+}
