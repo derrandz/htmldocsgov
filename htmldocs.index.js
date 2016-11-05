@@ -1,29 +1,32 @@
 'use strict';
 
 const logger = require('./htmldocs.logger.js');
-const govService = require('./htmldocs.service.js');
-
-const govDirPath = require('./config/path.json').directory;
+const htmldocsService = require('./htmldocs.service.js');
+const htmldocsPaths = require('./config/path.json').directory;
 
 /**
  * @param {Object} result       An object containing warning/error messages and html value of the doc
  * @return {String}             An html string resulting from the doc conversion.
  */
 let log = function (result) {
-    logger.log(result.filename, result.logs);
+    logger.log(` ${result.filename} // ${result.logs}`);
     return result;
 };
 
 /**
+ * Saves the .docx files under .html after the conversion
  * @param {Object} result       An object containing warning/error messages and html value of the doc
- * @return
+ * @return {Promise}
  */
 let store = function (result) {
-    return govService.writeFile(result.filename, result.html);
+    return htmldocsService.writeFile(`${htmldocsPaths.output}/${result.filename}`, result.html);
 };
 
-let htmldocs = govService.convert.dir({path: govDirPath});
-
+/**
+ * The converted .docx to html in the specified dir.
+ * @type {Promise};
+ */
+let htmldocs = htmldocsService.convert.dir({path: htmldocsPaths.input});
 
 htmldocs
     .then(files => files.map(log))
